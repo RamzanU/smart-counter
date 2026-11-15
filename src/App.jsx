@@ -7,6 +7,7 @@ import NewCounter from './pages/NewCounter/NewCounter'
 import Counter from './pages/Counter/Counter'
 import Reports from './pages/Reports/Reports'
 import Settings from './pages/Settings/Settings'
+import ReportDetail from './pages/ReportDetail/ReportDetail'
 import './App.css'
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/counter/:id" element={<Counter />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/report/:id" element={<ReportDetail />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       {showNav && <BottomNav />}

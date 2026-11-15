@@ -1,0 +1,164 @@
+.report {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  padding: calc(16px + env(safe-area-inset-top)) 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.report__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.report__title {
+  min-width: 0;
+}
+
+.report__title h1 {
+  margin: 0;
+  font-size: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.report__title p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #c3cce0;
+}
+
+.report__total {
+  align-self: center;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.report__total-number {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.report__total-label {
+  font-size: 12px;
+  color: #c3cce0;
+}
+
+.report__tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.report__tab {
+  flex: 1;
+  height: 40px;
+  border: 0;
+  border-radius: 20px;
+  background: transparent;
+  color: #c3cce0;
+  font-weight: 600;
+}
+
+.report__tab--active {
+  background: #fff;
+  color: #0e1640;
+}
+
+.totals,
+.log {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.totals__line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.totals__value {
+  font-weight: 700;
+}
+
+.totals__bar {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.totals__fill {
+  height: 100%;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.log {
+  gap: 6px;
+}
+
+.log__row {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 14px;
+}
+
+.log__row--reset {
+  background: rgba(248, 113, 113, 0.15);
+}
+
+.log__time {
+  font-variant-numeric: tabular-nums;
+  color: #c3cce0;
+  font-size: 12px;
+}
+
+.log__delta {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.log__empty {
+  color: #c3cce0;
+  text-align: center;
+}
+
+.report__export {
+  margin-top: auto;
+  display: flex;
+  gap: 8px;
+}
+
+.report__export button {
+  flex: 1;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
