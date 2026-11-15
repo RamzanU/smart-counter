@@ -1,0 +1,87 @@
+.home {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  padding: calc(16px + env(safe-area-inset-top)) 20px calc(24px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.home__header h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.home__empty {
+  text-align: center;
+  color: #c3cce0;
+}
+
+.home__empty p {
+  margin: 4px 0;
+}
+
+.group-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.group-tile {
+  min-height: 150px;
+  padding: 14px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.group-tile__icons {
+  display: grid;
+  grid-template-columns: repeat(2, 34px);
+  gap: 6px;
+  min-height: 74px;
+  align-content: start;
+}
+
+.group-tile__icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.group-tile__name {
+  margin-top: auto;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.group-tile__meta {
+  font-size: 12px;
+  color: #c3cce0;
+}
+
+.group-tile--add {
+  border-style: dashed;
+  background: transparent;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+}
+
+.group-tile--add .group-tile__name {
+  margin-top: 6px;
+}

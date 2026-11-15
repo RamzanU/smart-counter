@@ -51,6 +51,26 @@ const ICONS = {
       <path d="M17 9l-5 5M12 9l5 5" />
     </>
   ),
+
+  chart: <path d="M6 20V10M12 20V4M18 20v-7" />,
+
+    single: <circle cx="12" cy="12" r="8" />,
+  multi: (
+    <>
+      <rect x="3" y="3" width="8" height="8" rx="2" />
+      <rect x="13" y="3" width="8" height="8" rx="2" />
+      <rect x="3" y="13" width="8" height="8" rx="2" />
+      <rect x="13" y="13" width="8" height="8" rx="2" />
+    </>
+  ),
+  limit: (
+    <>
+      <path d="M12 4a8 8 0 1 1-8 8" />
+      <path d="M12 12V8" />
+    </>
+  ),
+  folder: <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />,
+
 }
 
 export default function Icon({ name, size = 22, strokeWidth = 2.2 }) {

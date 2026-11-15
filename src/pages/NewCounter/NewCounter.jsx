@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, useParams } from 'react-router-dom'
 import { createCounter } from '../../db/actions'
 import './NewCounter.css'
 import Icon from '../../components/Icon/Icon'
@@ -12,6 +12,7 @@ const MODES = [
 
 export default function NewCounter() {
   const navigate = useNavigate()
+  const { groupId } = useParams()
   const [mode, setMode] = useState('multi')
   const [name, setName] = useState('')
   const [types, setTypes] = useState(['', ''])
@@ -43,6 +44,7 @@ export default function NewCounter() {
       limit: mode === 'limit' ? Number(limit) : null,
       by: by.trim(),
       trackLocation,
+      groupId,
     })
     navigate(`/counter/${id}`)
   }
@@ -50,7 +52,7 @@ export default function NewCounter() {
   return (
     <main className="new-counter">
       <header className="new-counter__header">
-        <Link to="/" className="glass-btn" aria-label="Back">
+        <Link to={`/group/${groupId}`} className="glass-btn" aria-label="Back">
             <Icon name="back" />
         </Link>
         <h1>New counter</h1>

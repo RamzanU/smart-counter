@@ -3,7 +3,7 @@ import { db } from './db'
 const uuid = () => crypto.randomUUID()
 
 // Create a counter: 1 type = single, several = multi, limit = number or null
-export async function createCounter({ name, types, limit = null, by = '', trackLocation = true }) {
+export async function createCounter({ name, types, limit = null, by = '', trackLocation = true, groupId = null }) {
   const now = Date.now()
   const counter = {
     id: uuid(),
@@ -11,8 +11,10 @@ export async function createCounter({ name, types, limit = null, by = '', trackL
     types: types.map((typeName) => ({ id: uuid(), name: typeName, count: 0 })),
     limit,
     step: 1,
+    steps: [1, 5, 10],
     by,
     trackLocation,
+    groupId,
     sessionStart: now,
     createdAt: now,
     updatedAt: now,
@@ -116,4 +118,17 @@ export async function saveReport(counterId) {
     })
   })
   return reportId
+}
+
+// Create a group (folder of counters)
+export async function createGroup(name) {
+  const now = Date.now()
+  const id = uuid()
+  await db.groups.add({ id, name, createdAt: now, updatedAt: now, synced: 0 })
+  return id
+}
+
+// Move a counter into a group (or out of it with groupId = null)
+export async function setCounterGroup(counterId, groupId) {
+  await db.counters.update(counterId, { groupId, updatedAt: Date.now(), synced: 0 })
 }

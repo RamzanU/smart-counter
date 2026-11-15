@@ -8,3 +8,8 @@ db.version(1).stores({
   reports: 'id, counterId, groupId, endedAt, synced',
   groups: 'id, synced',
 })
+
+db.version(2).stores({
+  counters: 'id, updatedAt, synced, groupId',
+  groups: 'id, name, synced',
+})

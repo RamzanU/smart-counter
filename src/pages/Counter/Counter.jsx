@@ -54,7 +54,7 @@ export default function Counter() {
   return (
     <main className="counter">
       <header className="counter__header">
-        <Link to="/" className="glass-btn" aria-label="Back to home">
+        <Link to={counter.groupId ? `/group/${counter.groupId}` : '/'} className="glass-btn" aria-label="Back">
           <Icon name="back" />
         </Link>
         <div className="counter__title">
@@ -123,11 +123,17 @@ export default function Counter() {
         }}
         onCancel={() => setAddingType(false)}
       />
+
+      <AmountDialog
+        open={customType !== null}
+        title={`Add to ${customType?.name}`}
         onSubmit={async (amount) => {
           const ok = await count(counter.id, customType.id, amount)
           if (!ok) navigator.vibrate?.([60, 40, 60, 40, 60])
           setCustomType(null)
         }}
+        onCancel={() => setCustomType(null)}
+      />
 
     </main>
   )
