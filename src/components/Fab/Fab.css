@@ -1,0 +1,24 @@
+.fab {
+  position: fixed;
+  right: max(20px, calc(50% - 220px));
+  bottom: calc(88px + env(safe-area-inset-bottom));
+  z-index: 90;
+  height: 56px;
+  padding: 0 22px 0 18px;
+  border: 0;
+  border-radius: 28px;
+  background: #fff;
+  color: #0e1640;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.fab:active {
+  transform: scale(0.97);
+}

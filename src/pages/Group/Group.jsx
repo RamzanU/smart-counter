@@ -6,6 +6,7 @@ import { deleteCounter, deleteGroup } from '../../db/actions'
 import { modeOf, totalOf } from '../../utils/counter'
 import Icon from '../../components/Icon/Icon'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
+import Fab from '../../components/Fab/Fab';
 import './Group.css'
 
 export default function Group() {
@@ -92,9 +93,7 @@ export default function Group() {
         ))}
       </ul>
 
-      <Link to={`/group/${id}/new`} className="primary-btn group__new">
-        <Icon name="plus" size={20} /> New counter
-      </Link>
+      <Fab label="New counter" to={`/group/${id}/new`} />
 
       <ConfirmDialog
         open={pendingDelete !== null}

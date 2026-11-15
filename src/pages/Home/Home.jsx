@@ -6,6 +6,7 @@ import { createGroup } from '../../db/actions'
 import { modeOf } from '../../utils/counter'
 import Icon from '../../components/Icon/Icon'
 import PromptDialog from '../../components/PromptDialog/PromptDialog'
+import Fab from '../../components/Fab/Fab';
 import './Home.css'
 
 const MODES = ['single', 'multi', 'limit']
@@ -71,11 +72,9 @@ export default function Home() {
           )
         })}
 
-        <button className="group-tile group-tile--add" onClick={() => setAddingGroup(true)}>
-          <Icon name="plus" size={28} />
-          <span className="group-tile__name">Add group</span>
-        </button>
       </div>
+
+      <Fab label="New group" onClick={() => setAddingGroup(true)} />
 
       <PromptDialog
         open={addingGroup}
