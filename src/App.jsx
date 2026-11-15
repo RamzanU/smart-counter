@@ -1,14 +1,19 @@
+import { Routes, Route } from 'react-router-dom'
 import UpdatePrompt from './components/UpdatePrompt/UpdatePrompt'
+import Home from './pages/Home/Home'
+import NewCounter from './pages/NewCounter/NewCounter'
+import Counter from './pages/Counter/Counter'
 import './App.css'
 
 export default function App() {
   return (
     <>
       <UpdatePrompt />
-      <main>
-        <h1>Easy-Count</h1>
-        <p>Version 2</p>
-      </main>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/new" element={<NewCounter />} />
+        <Route path="/counter/:id" element={<Counter />} />
+      </Routes>
     </>
   )
 }
