@@ -45,3 +45,21 @@ export async function count(counterId, typeId, delta, position = null, extra = {
     })
   })
 }
+
+// Reset one type to 0 (logged as a 'reset' event)
+export async function resetType(counterId, typeId) {
+  const counter = await db.counters.get(counterId)
+  const type = counter.types.find((t) => t.id === typeId)
+  if (type.count === 0) return
+  await count(counterId, typeId, -type.count, null, { kind: 'reset' })
+}
+
+// Reset all types to 0 (each logged as a 'reset' event)
+export async function resetAll(counterId) {
+  const counter = await db.counters.get(counterId)
+  for (const type of counter.types) {
+    if (type.count > 0) {
+      await count(counterId, type.id, -type.count, null, { kind: 'reset' })
+    }
+  }
+}

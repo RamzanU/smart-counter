@@ -4,7 +4,7 @@ import './MultiView.css'
 
 const TILE_COLORS = ['#4b6fd1', '#e98a9b', '#3e9c82', '#e6aa5a', '#8b6fd1', '#5ab4e6']
 
-export default function MultiView({ counter }) {
+export default function MultiView({ counter, onResetType }) {
   const total = counter.types.reduce((sum, t) => sum + t.count, 0)
   const step = counter.step
 
@@ -27,6 +27,15 @@ export default function MultiView({ counter }) {
             className="row"
             style={{ '--tile-color': TILE_COLORS[i % TILE_COLORS.length] }}
           >
+            <button
+              className="row__reset"
+              onClick={() => onResetType(type)}
+              disabled={type.count === 0}
+              aria-label={`Reset ${type.name}`}
+            >
+              <Icon name="reset" size={18} />
+            </button>
+
             <button
               className="row__minus"
               onClick={() => tap(type.id, -step)}

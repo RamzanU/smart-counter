@@ -12,6 +12,11 @@
   flex-shrink: 0;
 }
 
+.glass-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
 .primary-btn {
   height: 56px;
   border-radius: 28px;
