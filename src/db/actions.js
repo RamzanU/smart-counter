@@ -132,3 +132,19 @@ export async function createGroup(name) {
 export async function setCounterGroup(counterId, groupId) {
   await db.counters.update(counterId, { groupId, updatedAt: Date.now(), synced: 0 })
 }
+
+// Soft delete a counter (kept with deleted: 1 so sync can see it)
+export async function deleteCounter(counterId) {
+  await db.counters.update(counterId, { deleted: 1, updatedAt: Date.now(), synced: 0 })
+}
+
+// Soft delete a group and all its counters
+export async function deleteGroup(groupId) {
+  const now = Date.now()
+  await db.transaction('rw', db.groups, db.counters, async () => {
+    await db.groups.update(groupId, { deleted: 1, updatedAt: now, synced: 0 })
+    await db.counters
+      .where('groupId').equals(groupId)
+      .modify({ deleted: 1, updatedAt: now, synced: 0 })
+  })
+}

@@ -8,6 +8,8 @@ import Icon from '../../components/Icon/Icon'
 import PromptDialog from '../../components/PromptDialog/PromptDialog'
 import './Home.css'
 
+const MODES = ['single', 'multi', 'limit']
+
 export default function Home() {
   const navigate = useNavigate()
   const [addingGroup, setAddingGroup] = useState(false)
@@ -47,12 +49,17 @@ export default function Home() {
       <div className="group-grid">
         {groups.map((g) => {
           const items = countersOf(g.id)
+          const byMode = MODES
+            .map((mode) => ({ mode, n: items.filter((c) => modeOf(c) === mode).length }))
+            .filter((m) => m.n > 0)
+
           return (
             <Link key={g.id} to={`/group/${g.id}`} className="group-tile">
               <span className="group-tile__icons">
-                {items.slice(0, 4).map((c) => (
-                  <span key={c.id} className="group-tile__icon">
-                    <Icon name={modeOf(c)} size={16} />
+                {byMode.map((m) => (
+                  <span key={m.mode} className="group-tile__icon">
+                    <Icon name={m.mode} size={16} />
+                    <span className="group-tile__count">{m.n}</span>
                   </span>
                 ))}
               </span>

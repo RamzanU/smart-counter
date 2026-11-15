@@ -43,21 +43,25 @@
 }
 
 .group-tile__icons {
-  display: grid;
-  grid-template-columns: repeat(2, 34px);
+  display: flex;
+  flex-wrap: wrap;
   gap: 6px;
-  min-height: 74px;
-  align-content: start;
+  min-height: 34px;
 }
 
 .group-tile__icon {
-  width: 34px;
   height: 34px;
+  padding: 0 10px;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.16);
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 6px;
+}
+
+.group-tile__count {
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .group-tile__name {

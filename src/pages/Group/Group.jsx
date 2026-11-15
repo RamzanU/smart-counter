@@ -1,12 +1,17 @@
-import { Link, useParams } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../../db/db'
+import { deleteCounter, deleteGroup } from '../../db/actions'
 import { modeOf, totalOf } from '../../utils/counter'
 import Icon from '../../components/Icon/Icon'
+import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
 import './Group.css'
 
 export default function Group() {
   const { id } = useParams()
+  const navigate = useNavigate()
+  const [pendingDelete, setPendingDelete] = useState(null)
 
   const group = useLiveQuery(
     () => db.groups.get(id).then((g) => (g && !g.deleted ? g : null)),
@@ -28,6 +33,16 @@ export default function Group() {
     )
   }
 
+  const confirmDelete = async () => {
+    if (pendingDelete.kind === 'group') {
+      await deleteGroup(id)
+      navigate('/')
+    } else {
+      await deleteCounter(pendingDelete.id)
+      setPendingDelete(null)
+    }
+  }
+
   return (
     <main className="group">
       <header className="group__header">
@@ -38,7 +53,13 @@ export default function Group() {
           <span className="group__kicker">Group</span>
           <h1>{group.name}</h1>
         </div>
-        <span className="group__spacer" />
+        <button
+          className="glass-btn"
+          onClick={() => setPendingDelete({ kind: 'group' })}
+          aria-label="Delete group"
+        >
+          <Icon name="trash" />
+        </button>
       </header>
 
       {counters.length === 0 && (
@@ -47,7 +68,7 @@ export default function Group() {
 
       <ul className="counter-list">
         {counters.map((c) => (
-          <li key={c.id}>
+          <li key={c.id} className="counter-row">
             <Link to={`/counter/${c.id}`} className="counter-item">
               <span className="counter-item__icon">
                 <Icon name={modeOf(c)} size={20} />
@@ -60,6 +81,13 @@ export default function Group() {
               </span>
               <span className="counter-item__total">{totalOf(c)}</span>
             </Link>
+            <button
+              className="counter-row__delete"
+              onClick={() => setPendingDelete({ kind: 'counter', id: c.id, name: c.name })}
+              aria-label={`Delete ${c.name}`}
+            >
+              <Icon name="trash" size={18} />
+            </button>
           </li>
         ))}
       </ul>
@@ -67,6 +95,19 @@ export default function Group() {
       <Link to={`/group/${id}/new`} className="primary-btn group__new">
         <Icon name="plus" size={20} /> New counter
       </Link>
+
+      <ConfirmDialog
+        open={pendingDelete !== null}
+        title={pendingDelete?.kind === 'group' ? `Delete ${group.name}?` : `Delete ${pendingDelete?.name}?`}
+        message={
+          pendingDelete?.kind === 'group'
+            ? `The group and its ${counters.length} ${counters.length === 1 ? 'counter' : 'counters'} will be deleted.`
+            : 'This counter will be deleted. Its saved reports stay available.'
+        }
+        confirmLabel="Delete"
+        onConfirm={confirmDelete}
+        onCancel={() => setPendingDelete(null)}
+      />
     </main>
   )
 }
