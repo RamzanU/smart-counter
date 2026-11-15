@@ -1,0 +1,71 @@
+.big-circle {
+  align-self: center;
+  width: min(80vw, 330px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 3px solid #fff;
+}
+
+.big-circle--progress {
+  border: 0;
+  padding: 10px;
+  background: conic-gradient(var(--ring) var(--progress), rgba(255, 255, 255, 0.16) 0);
+  transition: background 0.3s;
+}
+
+.big-circle__btn {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+.big-circle--progress .big-circle__btn {
+  background: #101842;
+}
+
+.big-circle__btn:active {
+  background: rgba(255, 255, 255, 0.06); 
+}
+
+.big-circle--progress .big-circle__btn:active {
+  background: #18215a;
+}
+
+.big-circle__label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #c3cce0;
+}
+
+.big-circle__value {
+  font-size: clamp(64px, 24vw, 104px);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.big-circle__sub {
+  font-size: 13px;
+  color: #c3cce0;
+}
+
+.big-circle--shake {
+  animation: shake 0.4s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-10px); }
+  40%, 80% { transform: translateX(10px); }
+}

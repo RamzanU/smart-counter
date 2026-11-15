@@ -22,12 +22,18 @@ export async function createCounter({ name, types, limit = null, by = '', trackL
   return counter.id
 }
 
-// One tap: +step or -step on one type, logged as an event
+// One tap: +delta or -delta on one type, logged as an event.
+// Returns false if blocked (below 0 or over the limit).
 export async function count(counterId, typeId, delta, position = null, extra = {}) {
-  await db.transaction('rw', db.counters, db.events, async () => {
+  return db.transaction('rw', db.counters, db.events, async () => {
     const counter = await db.counters.get(counterId)
     const type = counter.types.find((t) => t.id === typeId)
-    if (type.count + delta < 0) return
+    if (type.count + delta < 0) return false
+
+    if (counter.limit && delta > 0) {
+      const total = counter.types.reduce((sum, t) => sum + t.count, 0)
+      if (total + delta > counter.limit) return false
+    }
 
     const now = Date.now()
     type.count += delta
@@ -43,6 +49,7 @@ export async function count(counterId, typeId, delta, position = null, extra = {
       synced: 0,
       ...extra,
     })
+    return true
   })
 }
 

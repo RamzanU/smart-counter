@@ -10,6 +10,8 @@ import './Counter.css'
 import StepPicker from '../../components/StepPicker/StepPicker'
 import PromptDialog from '../../components/PromptDialog/PromptDialog'
 import AmountDialog from '../../components/AmountDialog/AmountDialog'
+import SingleView from './SingleView'
+import LimitView from './LimitView'
 
 export default function Counter() {
   const { id } = useParams()
@@ -71,12 +73,24 @@ export default function Counter() {
 
       <StepPicker counter={counter} />
 
-      <MultiView
-        counter={counter}
-        onResetType={(type) => setPendingReset({ kind: 'one', typeId: type.id, name: type.name })}
-        onAddType={() => setAddingType(true)}
-        onCustomAmount={(type) => setCustomType(type)}
-      />
+      {mode === 'multi' && (
+        <MultiView
+          counter={counter}
+          onResetType={(type) => setPendingReset({ kind: 'one', typeId: type.id, name: type.name })}
+          onAddType={() => setAddingType(true)}
+          onCustomAmount={(type) => setCustomType(type)}
+        />
+      )}
+      {mode === 'single' && (
+        <SingleView
+          counter={counter}
+          onAddType={() => setAddingType(true)}
+          onCustomAmount={(type) => setCustomType(type)}
+        />
+      )}
+      {mode === 'limit' && (
+        <LimitView counter={counter} onCustomAmount={(type) => setCustomType(type)} />
+      )}
 
       <footer className="counter__actions">
         <button className="primary-btn" onClick={handleSave} disabled={total === 0}>
@@ -109,15 +123,11 @@ export default function Counter() {
         }}
         onCancel={() => setAddingType(false)}
       />
-      <AmountDialog
-        open={customType !== null}
-        title={`Add to ${customType?.name}`}
         onSubmit={async (amount) => {
-          await count(counter.id, customType.id, amount)
+          const ok = await count(counter.id, customType.id, amount)
+          if (!ok) navigator.vibrate?.([60, 40, 60, 40, 60])
           setCustomType(null)
         }}
-        onCancel={() => setCustomType(null)}
-      />
 
     </main>
   )

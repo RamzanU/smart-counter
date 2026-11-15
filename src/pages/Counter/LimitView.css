@@ -1,0 +1,33 @@
+.limit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.limit__status {
+  margin: 0;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #c3cce0;
+}
+
+.limit__status--done {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.limit__controls {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 6px;
+}
+
+.limit__status--blocked {
+  background: #fee2e2;
+  color: #991b1b;
+}
