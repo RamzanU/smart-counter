@@ -2,19 +2,21 @@ import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../../db/db'
-import { resetType, resetAll, addType } from '../../db/actions'
+import { resetType, resetAll, addType, count } from '../../db/actions'
 import Icon from '../../components/Icon/Icon'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
 import MultiView from './MultiView'
 import './Counter.css'
 import StepPicker from '../../components/StepPicker/StepPicker'
 import PromptDialog from '../../components/PromptDialog/PromptDialog'
+import AmountDialog from '../../components/AmountDialog/AmountDialog'
 
 export default function Counter() {
   const { id } = useParams()
   const counter = useLiveQuery(() => db.counters.get(id).then((c) => c ?? null), [id])
   const [pendingReset, setPendingReset] = useState(null)
   const [addingType, setAddingType] = useState(false)
+  const [customType, setCustomType] = useState(null)
 
   if (counter === undefined) return null
 
@@ -65,6 +67,7 @@ export default function Counter() {
         counter={counter}
         onResetType={(type) => setPendingReset({ kind: 'one', typeId: type.id, name: type.name })}
         onAddType={() => setAddingType(true)}
+        onCustomAmount={(type) => setCustomType(type)}
       />
 
       <ConfirmDialog
@@ -92,6 +95,16 @@ export default function Counter() {
         }}
         onCancel={() => setAddingType(false)}
       />
+      <AmountDialog
+        open={customType !== null}
+        title={`Add to ${customType?.name}`}
+        onSubmit={async (amount) => {
+          await count(counter.id, customType.id, amount)
+          setCustomType(null)
+        }}
+        onCancel={() => setCustomType(null)}
+      />
+
     </main>
   )
 }

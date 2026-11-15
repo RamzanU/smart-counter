@@ -44,6 +44,13 @@ const ICONS = {
       <path d="M3 4v5h5" />
     </>
   ),
+
+  backspace: (
+    <>
+      <path d="M21 5H9l-6 7 6 7h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z" />
+      <path d="M17 9l-5 5M12 9l5 5" />
+    </>
+  ),
 }
 
 export default function Icon({ name, size = 22, strokeWidth = 2.2 }) {
