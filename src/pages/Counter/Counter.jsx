@@ -7,6 +7,7 @@ import Icon from '../../components/Icon/Icon'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
 import MultiView from './MultiView'
 import './Counter.css'
+import StepPicker from '../../components/StepPicker/StepPicker'
 
 export default function Counter() {
   const { id } = useParams()
@@ -55,6 +56,8 @@ export default function Counter() {
           <Icon name="reset" />
         </button>
       </header>
+
+      <StepPicker counter={counter} />
 
       <MultiView
         counter={counter}

@@ -63,3 +63,13 @@ export async function resetAll(counterId) {
     }
   }
 }
+
+// Change active step
+export async function setStep(counterId, step) {
+  await db.counters.update(counterId, { step, updatedAt: Date.now(), synced: 0 })
+}
+
+// Save custom step presets, e.g. [1, 12, 24]
+export async function setStepPresets(counterId, steps) {
+  await db.counters.update(counterId, { steps, step: 1, updatedAt: Date.now(), synced: 0 })
+}
