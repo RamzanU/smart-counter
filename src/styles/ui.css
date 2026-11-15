@@ -63,3 +63,19 @@
 .ring-btn:disabled {
   opacity: 0.35;
 }
+
+/* Left-handed mode: mirror counter controls */
+.app--lefty .row,
+.app--lefty .lefty-flip {
+  flex-direction: row-reverse;
+}
+
+.app--lefty .row__tap {
+  border-left: 1px solid rgba(255, 255, 255, 0.22);
+  border-right: 6px solid var(--tile-color);
+  background: linear-gradient(
+    270deg,
+    color-mix(in srgb, var(--tile-color) 45%, transparent),
+    color-mix(in srgb, var(--tile-color) 12%, transparent)
+  );
+}

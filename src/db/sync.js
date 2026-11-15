@@ -8,7 +8,7 @@ const versionOf = (row) => row.updatedAt ?? row.endedAt ?? row.at ?? 0
 let running = false
 
 export async function pushChanges() {
- if (!supabase || running || !navigator.onLine) return
+  if (!supabase || running || !navigator.onLine) return
   running = true
 
   try {
@@ -41,7 +41,7 @@ export async function pushChanges() {
 }
 
 export async function pullChanges() {
-  if (!supabase || running || !navigator.onLine) return
+  if (!supabase || !navigator.onLine) return
 
   try {
     for (const table of TABLES) {
@@ -59,7 +59,15 @@ export async function pullChanges() {
         }
       })
     }
+    localStorage.setItem('lastSync', String(Date.now()))
   } catch (err) {
     console.warn('Pull failed, will retry later', err)
   }
 }
+
+export async function syncNow() {
+  await pushChanges()
+  await pullChanges()
+}
+
+export const getLastSync = () => Number(localStorage.getItem('lastSync')) || null
