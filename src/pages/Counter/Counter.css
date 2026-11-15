@@ -53,3 +53,12 @@
   padding: 0 28px;
   text-decoration: none;
 }
+
+.counter__actions {
+  margin-top: auto;
+  display: flex;
+}
+
+.counter__actions .primary-btn {
+  flex: 1;
+}

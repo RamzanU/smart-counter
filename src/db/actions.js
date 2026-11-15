@@ -80,3 +80,33 @@ export async function addType(counterId, name) {
   const types = [...counter.types, { id: uuid(), name, count: 0 }]
   await db.counters.update(counterId, { types, updatedAt: Date.now(), synced: 0 })
 }
+
+// Save current session as a report, then start a new session
+export async function saveReport(counterId) {
+  const counter = await db.counters.get(counterId)
+  const now = Date.now()
+  const reportId = uuid()
+
+  await db.transaction('rw', db.reports, db.counters, async () => {
+    await db.reports.add({
+      id: reportId,
+      counterId,
+      title: counter.name,
+      by: counter.by,
+      startedAt: counter.sessionStart,
+      endedAt: now,
+      totals: counter.types.map((t) => ({ typeId: t.id, name: t.name, count: t.count })),
+      total: counter.types.reduce((sum, t) => sum + t.count, 0),
+      limit: counter.limit,
+      groupId: null,
+      synced: 0,
+    })
+    await db.counters.update(counterId, {
+      types: counter.types.map((t) => ({ ...t, count: 0 })),
+      sessionStart: now,
+      updatedAt: now,
+      synced: 0,
+    })
+  })
+  return reportId
+}

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../../db/db'
-import { resetType, resetAll, addType, count } from '../../db/actions'
+import { resetType, resetAll, addType, count, saveReport } from '../../db/actions'
 import Icon from '../../components/Icon/Icon'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
 import MultiView from './MultiView'
@@ -17,6 +17,7 @@ export default function Counter() {
   const [pendingReset, setPendingReset] = useState(null)
   const [addingType, setAddingType] = useState(false)
   const [customType, setCustomType] = useState(null)
+  const [saved, setSaved] = useState(false)
 
   if (counter === undefined) return null
 
@@ -39,6 +40,13 @@ export default function Counter() {
       await resetType(counter.id, pendingReset.typeId)
     }
     setPendingReset(null)
+  }
+
+    const handleSave = async () => {
+    await saveReport(counter.id)
+    navigator.vibrate?.([20, 40, 20])
+    setSaved(true)
+    setTimeout(() => setSaved(false), 2000)
   }
 
   return (
@@ -69,6 +77,12 @@ export default function Counter() {
         onAddType={() => setAddingType(true)}
         onCustomAmount={(type) => setCustomType(type)}
       />
+
+      <footer className="counter__actions">
+        <button className="primary-btn" onClick={handleSave} disabled={total === 0}>
+          {saved ? 'Saved ✓' : 'Save as report'}
+        </button>
+      </footer>
 
       <ConfirmDialog
         open={pendingReset !== null}
