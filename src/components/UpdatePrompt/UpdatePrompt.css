@@ -1,8 +1,10 @@
 .update-prompt {
   position: fixed;
-  left: 16px;
-  right: 16px;
-  bottom: calc(16px + env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 448px;
+  top: calc(16px + env(safe-area-inset-top));
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -31,6 +33,16 @@
   color: #0e1640;
   font-weight: 700;
   cursor: pointer;
+}
+
+.update-prompt {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 448px;
+  top: calc(16px + env(safe-area-inset-top));
+  z-index: 1000;
 }
 
 .update-prompt__close {

@@ -1,0 +1,37 @@
+.sync-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sync-status__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.sync-status--synced {
+  background: rgba(74, 222, 128, 0.15);
+  color: #86efac;
+}
+
+.sync-status--syncing {
+  background: rgba(147, 197, 253, 0.15);
+  color: #93c5fd;
+}
+
+.sync-status--offline {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.sync-status--local {
+  background: rgba(255, 255, 255, 0.1);
+  color: #c3cce0;
+}

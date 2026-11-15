@@ -1,0 +1,18 @@
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100dvh;
+}
+
+@media (min-width: 520px) {
+  body {
+    background: #05081c;
+  }
+
+  .app {
+    background: linear-gradient(180deg, #0a0f2c 0%, #0e1640 55%, #27467a 100%);
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.6);
+  }
+}

@@ -8,9 +8,11 @@ import Counter from './pages/Counter/Counter'
 import Reports from './pages/Reports/Reports'
 import Settings from './pages/Settings/Settings'
 import ReportDetail from './pages/ReportDetail/ReportDetail'
+import useSync from './hooks/useSync'
 import './App.css'
 
 export default function App() {
+  useSync()
   const { pathname } = useLocation()
   const showNav = !pathname.startsWith('/counter/') && !pathname.endsWith('/new')
 

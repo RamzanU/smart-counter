@@ -7,6 +7,7 @@ import { modeOf } from '../../utils/counter'
 import Icon from '../../components/Icon/Icon'
 import PromptDialog from '../../components/PromptDialog/PromptDialog'
 import Fab from '../../components/Fab/Fab';
+import SyncStatus from '../../components/SyncStatus/SyncStatus'
 import './Home.css'
 
 const MODES = ['single', 'multi', 'limit']
@@ -38,6 +39,7 @@ export default function Home() {
     <main className="home">
       <header className="home__header">
         <h1>Easy-Count</h1>
+        <SyncStatus />
       </header>
 
       {groups.length === 0 && (
