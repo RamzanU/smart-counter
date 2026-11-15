@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { createCounter } from '../../db/actions'
 import './NewCounter.css'
+import Icon from '../../components/Icon/Icon'
 
 const MODES = [
   { id: 'single', label: 'Single', hint: 'one big button' },
@@ -49,7 +50,9 @@ export default function NewCounter() {
   return (
     <main className="new-counter">
       <header className="new-counter__header">
-        <Link to="/" className="glass-btn" aria-label="Back">‹</Link>
+        <Link to="/" className="glass-btn" aria-label="Back">
+            <Icon name="back" />
+        </Link>
         <h1>New counter</h1>
       </header>
 

@@ -1,0 +1,28 @@
+.glass-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.primary-btn {
+  height: 56px;
+  border-radius: 28px;
+  border: 0;
+  background: #fff;
+  color: #0e1640;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.primary-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
