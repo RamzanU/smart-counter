@@ -11,8 +11,9 @@ export default defineConfig({
   VitePWA({
   registerType: 'prompt',
   includeAssets: ['favicon.svg', 'favicon.ico', 'apple-touch-icon-180x180.png'],
-        workbox: {
+    workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,ico,webmanifest}'],
+        globIgnores: ['screenshots/**'],
         navigateFallback: '/index.html',
         runtimeCaching: [
           {
@@ -61,6 +62,23 @@ export default defineConfig({
       { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png' },
       { src: 'maskable-icon-512x512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
     ],
+
+    screenshots: [
+        {
+          src: 'screenshots/narrow.png',
+          sizes: '824x1830',
+          type: 'image/png',
+          form_factor: 'narrow',
+          label: 'Counting with multiple types',
+        },
+        {
+          src: 'screenshots/wide.png',
+          sizes: '2560x1440',
+          type: 'image/png',
+          form_factor: 'wide',
+          label: 'Easy-Count on desktop',
+        },
+      ],
   },
 }),
 ],
