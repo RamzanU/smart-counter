@@ -1,0 +1,60 @@
+.sheet {
+  width: 100%;
+  max-width: 480px;
+  margin: auto auto 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #fff;
+}
+
+.sheet::backdrop {
+  background: rgba(3, 6, 20, 0.6);
+}
+
+.sheet__body {
+  padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
+  border-radius: 24px 24px 0 0;
+  background: #141c4a;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: none;
+}
+
+.sheet__title {
+  margin: 4px 0 10px;
+  text-align: center;
+  font-size: 13px;
+  color: #9aa6c7;
+}
+
+.sheet__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sheet__item,
+.sheet__cancel {
+  width: 100%;
+  height: 52px;
+  border: none;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sheet__item--danger {
+  color: #fca5a5;
+}
+
+.sheet__cancel {
+  margin-top: 10px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}

@@ -120,12 +120,16 @@ export async function saveReport(counterId) {
   return reportId
 }
 
-// Create a group (folder of counters)
-export async function createGroup(name) {
+// Create & update a group (folder of counters)
+export async function createGroup(name, color = null) {
   const now = Date.now()
   const id = uuid()
-  await db.groups.add({ id, name, createdAt: now, updatedAt: now, synced: 0 })
+  await db.groups.add({ id, name, color, createdAt: now, updatedAt: now, synced: 0 })
   return id
+}
+
+export async function updateGroup(id, changes) {
+  await db.groups.update(id, { ...changes, updatedAt: Date.now(), synced: 0 })
 }
 
 // Move a counter into a group (or out of it with groupId = null)

@@ -90,3 +90,40 @@
 .group-tile--add .group-tile__name {
   margin-top: 6px;
 }
+
+.group-card {
+  position: relative;
+}
+
+.group-card > .group-tile {
+  height: 100%;
+}
+
+.group-card__more {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.group-card__more:active {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.group-tile--colored {
+  border-color: color-mix(in srgb, var(--group-color) 55%, transparent);
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--group-color) 40%, transparent) 0%,
+    rgba(255, 255, 255, 0.05) 75%
+  );
+}
