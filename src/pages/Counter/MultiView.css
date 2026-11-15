@@ -132,3 +132,17 @@
 .row__reset:disabled {
   opacity: 0.3;
 }
+
+.add-row {
+  height: 56px;
+  border-radius: 20px;
+  border: 1px dashed rgba(255, 255, 255, 0.4);
+  background: transparent;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}

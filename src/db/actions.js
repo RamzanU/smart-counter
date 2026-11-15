@@ -73,3 +73,10 @@ export async function setStep(counterId, step) {
 export async function setStepPresets(counterId, steps) {
   await db.counters.update(counterId, { steps, step: 1, updatedAt: Date.now(), synced: 0 })
 }
+
+// Add a type to an existing counter (single becomes multi)
+export async function addType(counterId, name) {
+  const counter = await db.counters.get(counterId)
+  const types = [...counter.types, { id: uuid(), name, count: 0 }]
+  await db.counters.update(counterId, { types, updatedAt: Date.now(), synced: 0 })
+}

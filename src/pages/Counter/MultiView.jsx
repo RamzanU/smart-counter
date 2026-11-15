@@ -4,7 +4,7 @@ import './MultiView.css'
 
 const TILE_COLORS = ['#4b6fd1', '#e98a9b', '#3e9c82', '#e6aa5a', '#8b6fd1', '#5ab4e6']
 
-export default function MultiView({ counter, onResetType }) {
+export default function MultiView({ counter, onResetType, onAddType }) {
   const total = counter.types.reduce((sum, t) => sum + t.count, 0)
   const step = counter.step
 
@@ -57,8 +57,13 @@ export default function MultiView({ counter, onResetType }) {
               <span className="row__count">{type.count}</span>
             </button>
           </div>
-        ))}
+         ))}
       </div>
+
+        <button className="add-row" onClick={onAddType}>
+            <Icon name="plus" size={18} /> Add type
+        </button>
+
     </section>
   )
 }

@@ -2,17 +2,19 @@ import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../../db/db'
-import { resetType, resetAll } from '../../db/actions'
+import { resetType, resetAll, addType } from '../../db/actions'
 import Icon from '../../components/Icon/Icon'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
 import MultiView from './MultiView'
 import './Counter.css'
 import StepPicker from '../../components/StepPicker/StepPicker'
+import PromptDialog from '../../components/PromptDialog/PromptDialog'
 
 export default function Counter() {
   const { id } = useParams()
   const counter = useLiveQuery(() => db.counters.get(id).then((c) => c ?? null), [id])
   const [pendingReset, setPendingReset] = useState(null)
+  const [addingType, setAddingType] = useState(false)
 
   if (counter === undefined) return null
 
@@ -62,6 +64,7 @@ export default function Counter() {
       <MultiView
         counter={counter}
         onResetType={(type) => setPendingReset({ kind: 'one', typeId: type.id, name: type.name })}
+        onAddType={() => setAddingType(true)}
       />
 
       <ConfirmDialog
@@ -75,6 +78,19 @@ export default function Counter() {
         confirmLabel="Reset"
         onConfirm={confirmReset}
         onCancel={() => setPendingReset(null)}
+      />
+
+      <PromptDialog
+        open={addingType}
+        title="Add type"
+        label="Type name"
+        placeholder="e.g. Cargo bike"
+        submitLabel="Add"
+        onSubmit={async (name) => {
+          await addType(counter.id, name)
+          setAddingType(false)
+        }}
+        onCancel={() => setAddingType(false)}
       />
     </main>
   )
