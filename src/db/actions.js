@@ -106,7 +106,7 @@ export async function saveReport(counterId) {
       totals: counter.types.map((t) => ({ typeId: t.id, name: t.name, count: t.count })),
       total: counter.types.reduce((sum, t) => sum + t.count, 0),
       limit: counter.limit,
-      groupId: null,
+      groupId: counter.groupId ?? null,
       synced: 0,
     })
     await db.counters.update(counterId, {
