@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useNavigate, Link, useParams } from 'react-router-dom'
 import { createCounter } from '../../db/actions'
-import './NewCounter.css'
+import { getSettings, setSetting } from '../../utils/settings'
 import Icon from '../../components/Icon/Icon'
+import './NewCounter.css'
 
 const MODES = [
   { id: 'single', label: 'Single', hint: 'one big button' },
@@ -17,8 +18,7 @@ export default function NewCounter() {
   const [name, setName] = useState('')
   const [types, setTypes] = useState(['', ''])
   const [limit, setLimit] = useState('')
-  const [by, setBy] = useState(() => localStorage.getItem('by') ?? '')
-  const [trackLocation, setTrackLocation] = useState(true)
+  const [by, setBy] = useState(() => getSettings().by)
 
   const cleanTypes = mode === 'multi'
     ? types.map((t) => t.trim()).filter(Boolean)
@@ -37,13 +37,12 @@ export default function NewCounter() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!canSubmit) return
-    localStorage.setItem('by', by.trim())
+    setSetting('by', by.trim())
     const id = await createCounter({
       name: name.trim(),
       types: cleanTypes,
       limit: mode === 'limit' ? Number(limit) : null,
       by: by.trim(),
-      trackLocation,
       groupId,
     })
     navigate(`/counter/${id}`)
@@ -53,7 +52,7 @@ export default function NewCounter() {
     <main className="new-counter">
       <header className="new-counter__header">
         <Link to={`/group/${groupId}`} className="glass-btn" aria-label="Back">
-            <Icon name="back" />
+          <Icon name="back" />
         </Link>
         <h1>New counter</h1>
       </header>
@@ -110,11 +109,6 @@ export default function NewCounter() {
         <label className="field">
           <span>Counted by</span>
           <input value={by} onChange={(e) => setBy(e.target.value)} placeholder="Your name" />
-        </label>
-
-        <label className="toggle">
-          <span>Save location with each count</span>
-          <input type="checkbox" checked={trackLocation} onChange={(e) => setTrackLocation(e.target.checked)} />
         </label>
 
         <button type="submit" className="primary-btn" disabled={!canSubmit}>Start counting</button>

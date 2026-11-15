@@ -3,7 +3,7 @@ import { db } from './db'
 const uuid = () => crypto.randomUUID()
 
 // Create a counter: 1 type = single, several = multi, limit = number or null
-export async function createCounter({ name, types, limit = null, by = '', trackLocation = true, groupId = null }) {
+export async function createCounter({ name, types, limit = null, by = '', groupId = null }) {
   const now = Date.now()
   const counter = {
     id: uuid(),
@@ -13,7 +13,6 @@ export async function createCounter({ name, types, limit = null, by = '', trackL
     step: 1,
     steps: [1, 5, 10],
     by,
-    trackLocation,
     groupId,
     sessionStart: now,
     createdAt: now,

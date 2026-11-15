@@ -116,23 +116,6 @@
   font-weight: 600;
 }
 
-.toggle {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 52px;
-  padding: 0 16px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.toggle input {
-  width: 22px;
-  height: 22px;
-  accent-color: #fff;
-}
-
 .new-counter__form .primary-btn {
   margin-top: 8px;
 }
